@@ -1,6 +1,120 @@
 <!doctype html>
-<html>
+<html onclick="jump()">
+<head>
+ <title>Dino game by Harsh :D</title>
+ <style>
+#game{
+width: 100%;
+height: 200px;
+border: 2px solid black;
+margin: auto;
+}
+body {
+ text-align: center;
+}
+#character {
+ position: relative;
+ height: 50px;
+ width: 20px;
+ background-color: red;
+ top: 150px;
+ left: 7px;
+}
+.animate{
+animation-name: jump;
+animation-duration: 500ms;
+}
+@keyframes jump{
+0%, 100%{
+top: 150px;
+left: 7px;
+}
+50%{
+top: 70px;
+left: 7px;
+}
+}
+#block {
+ height: 40px;
+ width: 20px;
+ background-color: blue;
+ position: relative;
+ top: 110px;
+ left: 400px;
+ animation:block 2s infinite linear;
+}
+@keyframes block{
+0%{
+left: 400px;
+}
+100%{
+left: -20px;
+}
+}
+</style>
+</head>
 <body>
-My frst website
+     <div id="game">
+      <div id="character">
+       
+      </div>
+     <div id="block">
+      
+     </div>
+     </div>
+     <p id="scoreshow"></p>
+ <script>
+var character = document
+ .getElementById('character');
+var block = document.getElementById(
+ 'block');
+var score = 0;
+
+function jump() {
+ if (character.classList ==
+  "animate") {
+  return
+ }
+ character.classList.add("animate");
+ setTimeout(function() {
+  character.classList.remove(
+   "animate");
+ }, 500);
+}
+var checkDead = setInterval(
+ function() {
+  let characterTop = parseInt(window
+   .getComputedStyle(character)
+   .getPropertyValue("top"));
+  let blockLeft = parseInt(window
+   .getComputedStyle(block)
+   .getPropertyValue("left"));
+  if (blockLeft < 20 && blockLeft >
+   -20 && characterTop >= 130) {
+   block.style.animation = "none";
+   alert("Game Over,Your Score - " +
+    score +
+    " ,Click Ok to start again.");
+   block.style.animation =
+    "block 1s infinite linear";
+   var scoreshow =
+    document.createElement("P");
+   scoreshow.innerText =
+    "Your score - " + score;
+   document.body.appendChild(
+    scoreshow);
+   score = 0;
+  }
+ }, 10);
+var score_increase = setInterval(
+ function() {
+  score++
+  document.getElementById(
+    'scoreshow').innerHTML =
+   "Score - " + score;
+ }, 100);
+increase();
+
+</script>
 </body>
 </html>
